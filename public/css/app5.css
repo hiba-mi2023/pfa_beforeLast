@@ -1,0 +1,317 @@
+
+@import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+body {
+    background-color: #fff;
+
+}
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+.sidebar {
+    position: relative;
+    width: 256px;
+    height: 100vh;
+    background-color: #fff;
+    
+    padding: 24px;
+    border-radius: 30px;
+    gap: 20px;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow for separation */
+    border: 1px solid #e0e0e0; /* Add border for separation */
+}
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+.sidebar .head {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f6f6f6;
+    align-items: center;
+}
+.user-img {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.user-img img {
+    width: 100%;
+    object-fit: cover;
+}
+.user-details .name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 18px;
+}
+.menu .title {
+    font-size: 10px;
+    font-weight: 500;
+    color: #757575;
+    text-transform: uppercase;
+}
+.menu ul li {
+    list-style: none;
+    margin-bottom: 5px;
+}
+.menu ul li a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #757575;
+    text-decoration: none;
+    padding: 12px 8px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+.menu ul li:hover a, .menu ul li.active > a {
+    color: #000;
+    background-color: #f6f6f6;
+}
+
+.menu ul li .icon {
+    font-size: 20px;
+}
+.menu ul li .text {
+    flex: 1;
+}
+.container .shared-style {
+    font-size: 14px;
+    font-weight: 500;
+    color: #757575;
+    text-decoration: none;
+    padding: 12px 8px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.container .shared-style:hover {
+    color: #000;
+    background-color: #f6f6f6;
+}
+.menu-btn {
+    position: absolute;
+    right: -14px;
+    top: 3.5%;
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #757575;
+    border: 2px solid #f6f6f6;
+    background-color: #fff;
+}
+.menu-btn:hover i {
+    color: #000;
+}
+.menu-btn i {
+    transition: all 0.3s;
+}
+.sidebar.active {
+    width: 92px;
+}
+.sidebar.active .menu-btn i {
+    transform: rotate(180deg);
+}
+
+.sidebar.active .user-details {
+    display: none;
+}
+
+.sidebar.active .menu .title {
+    text-align: center;
+}
+
+.sidebar.active .menu > ul > li > a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar.active .menu > ul > li > a .text {
+    position: absolute;
+    left: 70px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #000; /* Ensures text is visible when sidebar is collapsed */
+}
+
+.sidebar.active .menu ul li a .text {
+    display: none;
+}
+
+.sidebar.active .menu ul li:hover a .text {
+    display: block;
+}
+
+.sidebar.active .shared-style {
+    display: none;
+}
+
+.sidebar .menu ul li .shared-style {
+    flex: 1;
+}
+
+
+
+
+
+
+
+
+
+
+/* Container and Card Styles */
+.details {
+    padding: 20px;
+}
+
+.recentOrders {
+    overflow-x: auto; 
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+}
+
+.cardHeader {
+    margin-bottom: 20px;
+}
+
+.cardHeader h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+thead {
+    background-color: #f4f4f9;
+}
+
+thead th {
+    padding: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    color: #333;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+tbody tr {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+tbody td {
+    padding: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* Button Styles */
+form {
+    display: inline;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"] {
+    background-color: #4CAF50;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+button[type="submit"].delete {
+    background-color: #f44336;
+}
+
+button[type="submit"].delete:hover {
+    background-color: #e53935;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    thead {
+        display: none;
+    }
+
+    tbody tr {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+    tbody td {
+        display: block;
+        text-align: right;
+        font-size: 13px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    tbody td:before {
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-weight: 600;
+        color: #333;
+    }
+
+    tbody td:last-child {
+        border-bottom: 0;
+    }
+}
+/* Image Styles */
+tbody td img {
+    width: 100%; /* Make the image responsive */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+tbody td.picture-cell {
+    width: 200px; /* Double the width for the picture cell */
+}

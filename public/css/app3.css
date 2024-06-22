@@ -1,0 +1,159 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+/* Form container */
+body{
+    color:#52505e;
+    background:white;
+}
+.form-container {
+    margin-top:80px;
+    height:56vh;
+    width:70vh;
+    max-width: 400px;
+    margin-right:auto;
+    margin-left: auto;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    border:8px solid #e0e0e7;
+    border-radius:15px;
+    background-color: white;
+}
+.form-contaiiner {
+    margin-top:70px;
+    height:58vh;
+    width:70vh;
+    max-width: 400px;
+    margin-right:auto;
+    margin-left: auto;
+    padding: 20px;
+    /* border: 1px solid #ccc; */
+    border:8px solid #e0e0e7;
+    border-radius:15px;
+    background-color: white;
+}
+.form-contaiiner label {
+    font-family:'Nunito',sans-serif;
+    display: block;
+    margin-bottom: 5px;
+    font-size:14px;
+    margin-bottom:0.5em;
+    font-weight:600;
+}
+/* Form fields */
+.form-container label {
+    font-family:'Nunito',sans-serif;
+    display: block;
+    margin-bottom: 5px;
+    font-size:14px;
+    margin-bottom:0.5em;
+    font-weight:600;
+}
+.form-contaiiner input[type="email"],
+.form-contaiiner input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box; /* Ensure that padding and border don't increase the width */
+}
+.form-container input[type="email"],
+.form-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box; /* Ensure that padding and border don't increase the width */
+}
+.form-contaiiner button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #6c5ce7;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top:8px;
+}
+
+/* Button */
+.form-container button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 3px;
+    background-color: #6c5ce7;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top:10px;
+}
+.form-contaiiner button[type="submit"]:hover {
+    background-color: #a29bfe;
+}
+.form-container button[type="submit"]:hover {
+    background-color: #a29bfe;
+}
+
+/* Error messages */
+.error-messages {
+    margin-top: 10px;
+    color: #ff0000;
+    font-size: 14px;
+}
+
+h2{
+    font-weight:400;
+    line-height:1.25;
+    margin:0 0 0.5em;
+    margin-top:20px;
+    margin-bottom:30px;
+}
+/* Style for Remember Me checkbox and label */
+.remember-container {
+    display: flex;
+    align-items: center; /* Center vertically */
+}
+
+.remember-container input[type="checkbox"] {
+    margin-right: 5px; /* Add some spacing between checkbox and label */
+    
+}
+.remember-container label{
+    margin-top:8px;
+}
+.remember-forgot-container {
+    display: flex; /* Display items in a row */
+    align-items: center; /* Center vertically */
+    justify-content: space-between; /* Add space between items */
+}
+/* Style for Forgot Your Password link */
+.remember-forgot-container a {
+    color: #6c5ce7; /* Set the text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 14px; /* Adjust font size */
+    margin-left: 10px; /* Add some spacing between Remember Me and Forgot Password */
+}
+
+.remember-forgot-container a:hover {
+    text-decoration: underline; /* Underline on hover */
+}
+.message {
+    text-align: center;
+    margin-top: 20px;
+}
+.register-link {
+    margin-bottom: 6px; /* Adjust margin as needed */
+    text-align: center; /* Center the link horizontally */
+    
+}
+.register-link a {
+    color: #6c5ce7; /* Blue color, change as per your design */
+    text-decoration: none; /* Remove underline */
+}
+.register-link a:hover {
+    text-decoration: underline; /* Underline on hover */
+}

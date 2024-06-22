@@ -1,0 +1,622 @@
+.add-note-form {
+  margin-top: 50px;
+  }
+  
+  .form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .form-container h2 {
+    text-align: center;
+  }
+  
+  .form-container label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .form-container input[type="text"],.form-container select,
+  .form-container textarea {
+    width: 100%;
+    padding: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .form-container button {
+    background-color: #F48BA9;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    margin-top:5px;
+  }
+  
+  .form-container button:hover {
+    background-color: #E6738F;
+  }
+  
+  /* Styling for file input */
+  .form-container input[type="file"] {
+    margin-top: 5px;
+  }
+  
+  /* Optional: Styling for error messages */
+  .error-message {
+    color: red;
+    margin-top: 5px;
+  }
+
+  .error-message{
+    color: red;
+    font-size: 14px;
+    margin-top: -6px;
+    margin-bottom: 0;
+  }
+
+  .note{
+    border-style: solid;
+    border-width: 1px;
+    border-color:#ccc;
+    border-radius: 15px;
+    margin-bottom: 15px;
+    width:85%;
+    margin-left:auto;
+    margin-right: auto;
+  }
+  /**/
+  .note-rating i {
+    cursor: pointer;
+  }
+
+  .star-filled {
+    color: gold; /* Change to the color you want the filled star to be */
+  }
+
+  .user-info{
+    margin-top:16px;
+    margin-left:16px;
+    display:flex;
+
+  }
+
+  .user-info .fa-solid.fa-user {
+    margin-top:22px;
+    vertical-align: top;
+  }
+
+  .user-info .fa-solid fa-user{
+    margin-bottom:2px;
+  }
+  .user-info .user-name {
+    display: inline-block;
+    font-size: 8px; /* Adjust the font size as needed */
+    line-height: 1.2; /* Adjust the line height for better spacing */
+    margin-top: 10px; /* Adjust the margin to control spacing around the username */
+    padding: 0; /* Adjust the padding if necessary */
+    color: #333; /* Optional: Adjust the color if needed */
+}
+
+
+  .user-info i{ 
+  margin-right:3px;
+  }
+
+  .user-info .user-name{
+    
+    font-size:20px;
+    margin-right:3px;
+  }
+
+.note-actions{
+    margin-right:16px;
+}
+.note-actions i{
+    margin-left:8px;
+}
+
+.note-published-at{
+    color:#ccc;
+    font-size:12px;
+    font-weight: bold;
+    
+}
+.comment-header .note-published-at{
+  color:#ccc;
+  font-size:12px;
+  font-weight: bold;
+  margin-right: 920px;
+  margin-top: 3px;
+}
+
+.note-container{
+    display: flex;
+    justify-content: space-between; /* Distributes child elements evenly along the main axis */
+    align-items: center;
+    margin-top:-7px;
+    
+    
+}
+.note{
+    height:400px;
+    width:520px;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 25px;
+    
+}
+
+.note-details{
+   
+    margin-bottom:10px;
+    margin-left:30px;
+}
+.note-title{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    
+}
+.note-details .note-title{
+    margin-top:-10px;
+}
+
+ .note-details .note-topic-id{
+  margin-top: -22px;
+  margin-bottom: 16px;
+ }
+
+hr{
+    width:400px;
+    background-color:#DCDCDC;
+    height:1px;
+    border:none;
+}
+
+.note-link:nth-child(3n+1) .note {
+  background-color:  #F48BA9;
+}
+
+.note-link:nth-child(3n+2) .note {
+  background-color:   #7afbff;
+}
+
+.note-link:nth-child(3n+3) .note {
+  background-color:  #86CBED;
+}
+.note-link:nth-child(3n+4) .note {
+background-color:  #e2f0cb;
+}
+
+
+#notes-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    
+}
+
+.more-details{
+    display:flex;
+    justify-content: flex-end;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 12px;
+
+}
+.more-details i{
+    font-size: 25px;
+}
+
+.more-details .see-more-button {
+
+    cursor:pointer;
+    color: black; /* Change text color to black */
+    border: 2px solid black; /* Add border */
+    border-radius: 20px; /* Add border radius */
+    display: inline-flex; /* Use flexbox to ensure inline alignment */
+    align-items: center; /* Align items vertically */
+    margin-bottom:8px;
+}
+
+.see-more-button i {
+    margin-left: 5px; /* Add some space between text and arrow */
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: #fff;
+    border-bottom: 3px solid;
+    border-image: linear-gradient(to right, #91aaff, #ff80c5, #7afbff);
+    border-image-slice: 1;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    margin-left: 0px;
+    height:80px;
+}
+
+.logout-icon a{
+    color: #F48BA9;    
+    text-decoration: none;
+}
+.user-icon a{
+  color: #F48BA9;    
+  text-decoration: none;
+}
+
+
+.icons {
+    display: flex;
+    margin-right: 50px;
+}
+
+.user-icon {
+  text-decoration: none;
+  color: inherit;  
+    margin-left: 10px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.content {
+    padding-top: 70px; /* Height of the header + 10px */
+    height: 2000px; /* Just for demonstration */
+}
+
+.image-container {
+width: 490px; /* Adjust width of the image container */
+height: 240px; /* Use full height of the note details */
+flex-shrink: 0; /* Prevent the image container from shrinking */
+display: flex; /* Use flexbox */
+justify-content: center; /* Center the image horizontally */
+align-items: center; /* Center the image vertically */
+margin-left: auto;
+margin-right: auto; /* Auto right margin */
+margin-top:-2px;
+}
+
+.image-container img {
+width: 100%; /* Make the image take the whole width of the container */
+height: auto; /* Maintain aspect ratio */
+max-width: 100%; /* Ensure the image does not exceed the container's width */
+max-height: 100%; /* Ensure the image does not exceed the container's height */
+border: none; /* Remove border from the image */
+/* border-radius: 15px; */
+margin-bottom: 12px;
+}
+.fa-regular.fa-comment-dots{
+  cursor:pointer;
+}
+.note-link {
+text-decoration: none; /* Remove underline */
+color: inherit; /* Inherit text color */
+/* Add more styles as needed */
+}
+
+/*  NOTE DETAILED CSS*/
+.note-detailed{
+  height:709px;
+  width:1200px;
+  margin-left:auto;
+  margin-right:auto;
+  border-style: solid;
+  border-width: 1px;
+  border-color:#ccc;
+  border-radius: 15px;
+  border-bottom-left-radius: 0%;
+  border-bottom-right-radius: 0%;
+  }
+ .note-detailed hr{
+  width:900px;
+  background-color:#DCDCDC;
+  height:1px;
+  border:none;
+  }
+  .note-detailed .image-container {
+  height:400px;
+  width:1100px;
+  }
+  .note-detailed .image-container .note-rating{
+  
+  }
+  .note-detailed .note-details .note-title{
+  margin-top:4px;
+  }
+  .note-detailed .note-details .note-details-1 .note-topic-id{
+  margin-top:8px;
+  margin-left:25px;
+  }
+  .note-detailed .note-details .note-details-1 .note-discipline{
+  margin-top:8px;
+  margin-left:25px;
+  }
+  .note-detailed .another-details{
+  margin-left:50px;
+  }
+
+  .note-detailed .note-container .user-info .note-published-at{  
+  color:#ccc;
+  font-size:12px;
+  font-weight: bold;
+  margin-top:-20px;
+  margin-left:20px;
+  }
+
+  
+  
+  .displayed-comment {
+    
+  background-color: #e9f7ef; /* Change background color for displayed comments */
+  border-left: 5px solid #27ae60; /* Add a left border to highlight displayed comments */
+  padding-left: 10px; /* Add padding to the left of displayed comments */
+  }
+  /* Add margin between comment icon and text */
+  .displayed-comment .fa-user {
+      margin-right: 5px; /* Adjust margin to your preference */
+      margin-bottom:3px;
+  }
+
+  
+  .comment-section {
+    background-color: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.comment {
+    display: flex;
+    align-items: flex-start;
+}
+
+.comment-user {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.user-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f3f3f3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.user-img i {
+    font-size: 20px;
+    color: #999;
+}
+
+textarea#comment-input {
+    width: 100%;
+    border: 1px solid #e6e6e6;
+    border-radius: 5px;
+    padding: 10px;
+    resize: none;
+    font-size: 14px;
+    color: #333;
+    outline: none;
+}
+
+textarea#comment-input::placeholder {
+    color: #999;
+}
+
+textarea#comment-input:focus {
+    border-color: #6c5ce7;
+}
+
+button[type="submit"] {
+    background-color: #6c5ce7;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+    background-color: #a29bfe;
+}
+
+
+  
+  
+  /**/
+  .search-container {
+  position: relative;
+  width: 50%;
+  margin-top: 130px;
+  margin-left: auto;
+  margin-right: auto;
+  }
+    
+  .search-container input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  }
+    
+  .search-container i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #ccc;
+  cursor: pointer;
+  }
+
+
+
+  .add-note-btn {
+    display: inline-block;
+    background-color: white;
+    color: black;
+    font-size: 18px;
+    width: 80px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    border: 2px solid #ccc; /* Add border */
+    border-radius: 10%;
+    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+    position: absolute;
+    top: 190px;
+    right: 40px;
+   
+}
+
+.add-note-btn:hover {
+    background-color: #7afbff;
+}
+
+
+.add-note-btn:focus {
+    outline: none; /* Remove outline on focus */
+}
+
+.add-note-btn:active {
+    transform: scale(0.95); /* Shrink button on click */
+}
+
+
+.user-img{
+  width: 40px; /* Adjust width as needed */
+  height: 40px; /* Adjust height as needed */
+  border-radius: 50%; /* Rounded border */
+  object-fit: cover; /* Maintain aspect ratio */
+  border: 1px solid #DCDCDC; /* White border with thickness */
+  margin-right: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+}  
+.user-img img {
+width: 100%; /* Make the image take the whole width of the container */
+height: auto; /* Maintain aspect ratio */
+max-width: 100%; /* Ensure the image does not exceed the container's width */
+max-height: 100%; /* Ensure the image does not exceed the container's height */
+border: none; /* Remove border from the image */
+/* border-radius: 15px; */
+border-radius: 50%;
+}
+.comments {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  margin-left: 60px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  
+}
+
+.user-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-right: 10px;
+}
+
+.user-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.comment-header span {
+  font-weight: bold;
+  
+}
+
+.comment-header small {
+  color: #777;
+  font-size: 12px;
+  margin-left: auto;
+}
+
+.comments p {
+  margin-top: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin-left:50px;
+}
+.like-action {
+cursor: pointer;
+}
+
+.fa-heart {
+color: #ccc; /* Default heart color */
+}
+
+.like-action.liked .fa-heart {
+color: red; /* Liked heart color */
+}
+.note-buttons {
+display: flex;
+justify-content: space-between; /* Adjust alignment as needed */
+margin-top: 10px; /* Adjust spacing between buttons and other elements */
+}
+
+.note-buttons button {
+flex-grow: 1; /* Each button takes up equal space */
+background-color: white; /* Default background color */
+color: black; /* Text color */
+border: 1px solid #ccc; /* No border */
+padding: 10px 20px; /* Padding inside buttons */
+margin-right: 10px; /* Spacing between buttons */
+cursor: pointer; /* Pointer cursor on hover */
+transition: background-color 0.3s ease; /* Smooth transition on hover */
+}
+
+.note-buttons button:last-child {
+margin-right: 0; /* Remove margin from last button */
+}
+
+.note-buttons button:hover {
+background-color: #e0e0e0; /* Darker background color on hover */
+}  
+.user-name a {
+  text-decoration: none; /* Remove the underline from links */
+  color: inherit; /* Inherit color from the parent element */
+  display: inline; /* Ensure it stays inline */
+}
+
+/* Optionally add styles for hover effect */
+.user-name a:hover {
+  text-decoration: none; /* Add underline on hover */
+  color: inherit; /* Change color on hover if desired */
+}
