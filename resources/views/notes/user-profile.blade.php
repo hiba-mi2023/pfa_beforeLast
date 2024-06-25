@@ -15,14 +15,14 @@
     <div class="user-info-container">
         
             <div class="background-image">
-                <img src="{{ asset('images/notes/photodecouverture.jpg') }}" alt="Profile Image">
+                <img src="{{ asset('images/notes/images (1).jpg') }}" alt="Profile Image">
                 <div class="profile-image-container" >
                     @if ($user->photo_de_profil)
                         <img src="{{ asset('storage/' . $user->photo_de_profil) }}" alt="Photo de profil de {{ $user->first_name }}">
                     @endif
                 </div>
             </div>
-
+           
             <div class="profile-infos">
                 <div class="profile-name">
                     <h1>{{ $user->first_name }} {{ $user->family_name }}</h1>
@@ -59,7 +59,7 @@
 
     <div class="user-notes">
         
-        <h3>Notes partagées par {{ $user->first_name }} {{ $user->family_name }}</h3>
+        <h2 class="titles">Notes Shared By {{ $user->first_name }} {{ $user->family_name }} :</h2>
         <div class="container">
             <div class="content">
                 <div id="notes-container">
@@ -83,18 +83,19 @@
                                         </div>
 
                                         <div class="note-rating">
-                                            <i class="fa-regular fa-star" data-rating="1"></i>
-                                            <i class="fa-regular fa-star" data-rating="2"></i>
-                                            <i class="fa-regular fa-star" data-rating="3"></i>
-                                            <i class="fa-regular fa-star" data-rating="4"></i>
-                                            <i class="fa-regular fa-star" data-rating="5"></i>
+                                           
                                         </div>
 
-                                        <div class="note-actions">
-                                            <i class="fa-regular fa-floppy-disk"></i>
-                                            <i class="fa-solid fa-share"></i>
-                                            <i class="fa-solid fa-triangle-exclamation"></i>
-                                        </div>
+                                        <div class="note-actionss">
+                                            <!-- Formulaire pour sauvegarder la note -->
+                                            <form action="{{ route('notes.save', ['id' => $note->id]) }}" method="POST" style="display: inline;">
+                                               @csrf
+                                               <button type="submit" class="save-button">
+                                                   <i class="fa-regular fa-floppy-disk"></i>
+                                               </button>
+                                           </form>
+                                           
+                                       </div>
 
                             </div>
 
@@ -105,23 +106,25 @@
                                             <h3 class="note-title">{{ $note->title }}</h3>
                                             <p class="note-topic-id">Topic: {{ $note->topic->name }}</p>
                                             
-                                            <div class="image-container">
-                                                @if ($note->photo)
-                                                <img src="{{ asset('' . $note->photo) }}" alt="Photo de la note">
-                                                @endif
-                                            </div>
+                                            
 
-                                            <div class="more-details">
-                                                <button class="see-more-button">
-                                                    See More<i class="fas fa-arrow-right"></i>
-                                                </button> 
-                                            </div>
+                                            
+                                        </div>
+                                        <div class="image-container">
+                                            @if ($note->photo)
+                                            <img src="{{ asset('' . $note->photo) }}" alt="Photo de la note">
+                                            @endif
+                                        </div>
+                                        <div class="more-details">
+                                            <button class="see-more-button">
+                                                See More<i class="fas fa-arrow-right"></i>
+                                            </button> 
                                         </div>
                             
                         </div>
 
                     </a>
-
+                   
                     @endforeach
                 </div>
             </div>

@@ -7,6 +7,106 @@
     <title>Note Details</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Styling for comment section */
+        .comment-section {
+            margin-top: 20px;
+        }
+    
+        /* Styling for comment user section */
+        .comment-user {
+            display: flex;
+            align-items: center;
+        }
+    
+        /* Styling for user image */
+        .comment-user .user-img {
+            margin-right: 10px;
+        }
+    
+        .comment-user .user-img i {
+            font-size: 24px;
+            color: #555;
+        }
+    
+        .comment-user .user-img img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    
+        /* Styling for comment input */
+        #comment-input {
+            flex: 1;
+            min-height: 40px;
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: none;
+        }
+    
+        /* Styling for publish button */
+        #publish-button {
+            background-color: #6c5ce7;
+            color: #fff;
+            border: none;
+            border-radius: 15px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top:4px;
+            margin-left: 50px;
+        }
+    
+        #publish-button:hover {
+            background-color: #a29bfe;
+        }
+    
+        /* Styling for existing comments */
+        #existing-comments {
+            margin-top: 20px;
+        }
+    
+        /* Styling for user image in existing comments */
+        #existing-comments .user-img {
+            margin-right: 10px;
+        }
+    
+        #existing-comments .user-img img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+    
+        /* Styling for comments */
+        #existing-comments .comments {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+    
+        #existing-comments .comments .comment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+    
+        #existing-comments .comments .comment-header span {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    
+        #existing-comments .comments .comment-header small {
+            color: #777;
+        }
+    
+        #existing-comments .comments p {
+            margin: 0;
+        }
+    </style>
+    
 </head>
 <body>
     <div class="note-detailed">
@@ -18,11 +118,11 @@
                     @if ($note->user->photo_de_profil)
                         <img  src="{{ asset('storage/' . $note->user->photo_de_profil) }}" >
                     @endif
-                    </div>
+                </div>
                 @if ($note->user)
-                <p> {{ $note->user->first_name }} {{ $note->user->family_name }}</p>
+                <div class="user-name"><p> {{ $note->user->first_name }} {{ $note->user->family_name }}</p></div>
                 @endif
-                <div>
+                <div class="pub">
                     <p class="note-published-at">{{ $note->created_at }}</p>
                 </div>
             </div>
@@ -31,39 +131,49 @@
                
             </div>
 
-            <div class="note-actions">
-                <i class="fa-regular fa-floppy-disk"></i>
+            <div class="note-actionss">
+                <!-- Formulaire pour sauvegarder la note -->
+                <form action="{{ route('notes.save', ['id' => $note->id]) }}" method="POST" style="display: inline;">
+                   @csrf
+                   <button type="submit" class="save-button">
+                       <i class="fa-regular fa-floppy-disk"></i>
+                   </button>
+               </form>
+               
             </div>
 
         </div>
 
         <hr/>
+        <h3 class="note-title">{{ $note->title }}</h3>
+        <div class="notee">
+            <div class="note-details">
+        
+                
+                <div class="note-details-1">
+                    <p class="note-topic-name">Topic :{{ $note->topic->name }} </p>
+                    @if($note->topic)
+                    @if($note->topic->discipline->discipline)
+                        <p class="note-discipline">Discipline : {{ $note->topic->discipline->discipline }}</p>
+                    @endif
+                    @endif
+                </div>
 
-        <div class="note-details">
-
-            <h3 class="note-title">{{ $note->title }}</h3>
-            <div class="note-details-1">
-                <p class="note-topic-name">Topic:{{ $note->topic->name }} </p>
-                @if($note->topic)
-                @if($note->topic->discipline->discipline)
-                    <p class="note-discipline">Discipline: {{ $note->topic->discipline->discipline }}</p>
-                @endif
-                @endif
             </div>
+            <div class="another-details">
 
+                <p class="note-description">Description :{{ $note->description }}</p>
+                <p class="note-keywords">Keywords : {{ $note->keywords }}</p>
+
+            </div>
+        
         </div>
-
         <div class="image-container">
          <img src="{{ asset('' . $note->photo) }}" alt="Photo de la note">
 
         </div>
 
-        <div class="another-details">
-
-            <p class="note-description">Description:{{ $note->description }}</p>
-            <p class="note-keywords">Keywords: {{ $note->keywords }}</p>
-
-        </div>
+        
 
         <div class="note-buttons">
 

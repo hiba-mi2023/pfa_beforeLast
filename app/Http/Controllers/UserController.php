@@ -8,9 +8,12 @@ use App\Models\User;
 use App\Models\Note;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
+use App\Models\savedNote;
 
 class UserController extends Controller
 {
@@ -79,29 +82,39 @@ class UserController extends Controller
     public function displayUser($id)
     {
         $user = User::find($id);
-        return view('notes.display-user', compact('user'));
-        // Vérifiez si l'utilisateur est authentifié
-        /*if (Auth::check()) {
-            // Récupérez l'utilisateur actuellement authentifié
-            $user = Auth::user();
-            
-            // Affichez la vue du profil de l'utilisateur avec les données de l'utilisateur
-            return view('notes.display-user', compact('user'));
-        } else {
-            return view('notes.register-user');
-        } */
+        $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
+        $notes = Note::where('ID_utilisateur', $id)->orderBy('published_at', 'desc')->get();
+
+        return view('notes.display-user',compact('user', 'savedNotes','notes'));
+     
     }
   
-    public function edit(Request $request): View
+  
+    public function edit(Request $request,$id): View
     {
-        return view('notes.display-user', [
-            'user' => $request->user(),
-        ]);
+        $user = User::findOrFail($id);
+        $notes = Note::where('ID_utilisateur', $id)->orderBy('published_at', 'desc')->get();
+        $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
+        
+        
+        return view('notes.display-user', compact('user', 'notes','savedNotes'));
     }
 
     /**
      * Update the user's profile information.
      */
+    // public function update(ProfileUpdateRequest $request): RedirectResponse
+    // {
+    //     $request->user()->fill($request->validated());
+
+    //     if ($request->user()->isDirty('email')) {
+    //         $request->user()->email_verified_at = null;
+    //     }
+
+    //     $request->user()->save();
+
+    //     return Redirect::route('notes.display-user', ['id' => $request->user()->id])->with('status', 'profile-updated');
+    // }
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $request->user()->fill($request->validated());
@@ -109,12 +122,24 @@ class UserController extends Controller
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
+        $user = $request->user();
+        $user->fill($request->validated());
+    
+        if ($request->hasFile('profile_image')) {
+            // Supprimer l'ancienne image de profil si elle existe
+            if ($user->photo_de_profil) {
+                Storage::disk('public')->delete($user->photo_de_profil);
+            }
+            // Enregistrer la nouvelle image de profil
+            $path = $request->file('profile_image')->store('profile_images', 'public');
+            $user->photo_de_profil = $path;
+        }
+    
 
         $request->user()->save();
 
-        return Redirect::route('notes.display-user')->with('status', 'profile-updated');
+        return Redirect::route('notes.display-user', ['id' => $request->user()->id])->with('status', 'profile-updated');
     }
-
     /**
      * Delete the user's account.
      */
@@ -144,6 +169,30 @@ public function showUserProfile($id)
     
     return view('notes.user-profile', compact('user', 'notes'));
 }
+//note_save
+// UserController.php
+/*
+public function showUserProfile($id)
+{
+    $user = User::findOrFail($id);
+    $savedNotes = DB::table('saved_notes')
+        ->join('notes', 'saved_notes.note_id', '=', 'notes.id')
+        ->where('saved_notes.user_id', $id)
+        ->select('notes.*')
+        ->orderBy('saved_notes.created_at', 'desc')
+        ->get();
 
+    return view('user-profile', compact('user', 'savedNotes'));*/
+    // UserController.php
+
+public function displaySavedNotes($id)
+{
+    $user = User::findOrFail($id);
     
+    $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
+
+    return view('notes.display-user', compact('user', 'savedNotes'));
 }
+
+}
+

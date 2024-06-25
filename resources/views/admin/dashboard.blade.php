@@ -143,7 +143,7 @@
                                         <td>{{ $note->topic->name }}</td>
                                         <td class="picture-cell">
                                             @if ($note->photo)
-                                                <img src="{{ asset($note->photo) }}" alt="Photo de la note" style="width: 50px; height: 50px;">
+                                                <img src="{{ asset($note->photo) }}" alt="Photo de la note" style="width: 100%; height: 100%;">
                                             @endif
                                         </td>
                                         <td>{{ $note->description }}</td>
@@ -191,6 +191,25 @@
                 } 
             });
         });
+        $(document).ready(function() {
+    var sidebar = $(".sidebar");
+    var sidebarOffset = sidebar.offset().top;
+
+    $(window).scroll(function() {
+        var scrollTop = $(window).scrollTop();
+
+        if (scrollTop > sidebarOffset) {
+            sidebar.css({
+                'transform': 'translateY(' + (scrollTop - sidebarOffset) + 'px)'
+            });
+        } else {
+            sidebar.css({
+                'transform': 'translateY(0)'
+            });
+        }
+    });
+});
+
     </script>
 </body>
 </html>

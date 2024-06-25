@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <style>
-       
+        @import url('https://fonts.googleapis.com/css2?family=Playwrite+NZ:wght@100..400&display=swap');
     </style>
 </head>
 <body>
@@ -17,7 +17,7 @@
         <div class="logo"><img class="logo"src="{{ asset('images/notes/Design sans titre (56).png') }}"></div>
         <div class="icons">
             <div class="user-icon">
-                <a href="{{ route('profile.edit', ['id' => Auth::user()->id]) }}">
+                <a href="{{ route('notes.display-user', ['id' => Auth::user()->id]) }}">
                     <i class="fas fa-user"></i>
                 </a>
             </div>
@@ -31,16 +31,21 @@
             </div>
         </div>
     </header>
+
     <div class="search-container">
         <input type="text" id="search-input" placeholder="Search..." oninput="searchNotes()">
         <i class="fas fa-search"></i>
     </div>
+
     <div><a href="{{ route('notes.add') }}" id="add-note-btn" class="add-note-btn">Add Note</a></div>
+    
     <div class="container">
     <div class="content">
         <div id="notes-container">
             @foreach($notes as $note)
-            <a href="{{ route('notes.detail', ['id' => $note->id]) }}" class="note-link">
+            @if ($note->is_approved)
+            <div class="note-link">
+            <a href="{{ route('notes.detail', ['id' => $note->id]) }}" >
                 <div class="note" data-topic="{{ $note->topic->name }}">
                     <div class="note-container">
                         
@@ -50,40 +55,66 @@
                                     <img  src="{{ asset('storage/' . $note->user->photo_de_profil) }}" alt="Photo de profil de {{ $note->user->first_name }}">
                                 @endif
                             </div>
-                            <p class="user-name">
+                            <p class="user-namee">
                             @if ($note->user)
+                            <a href="{{ route('user.profile', ['id' => $note->user->id]) }}" class="name">
                              {{ $note->user->first_name }} {{ $note->user->family_name }}
+                            </a>
                             @endif
                             </p>
+                            <div class="note-on">
+                                <p class="note-published-at">{{ $note->created_at }}</p>
+                            </div>
                          </div>
                          
-                         <div class="note-rating">
+                        <div class="note-rating">
                            
                         </div>
-                        <div class="note-actions">
-                            <i class="fa-regular fa-floppy-disk"></i>
-                        </div>
+
+                        <div class="note-actionss">
+                            <!-- Formulaire pour sauvegarder la note -->
+                            <form action="{{ route('notes.save', ['id' => $note->id]) }}" method="POST" style="display: inline;">
+                               @csrf
+                               <button type="submit" class="save-button">
+                                   <i class="fa-regular fa-floppy-disk"></i>
+                               </button>
+                           </form>
+                           
+                       </div>
                     </div>
                     <hr/>
 
                     <div class="note-details">
                         <h3 class="note-title">{{ $note->title }}</h3>
-                        <p class="note-topic-id">Topic: {{ $note->topic->name }}</p>
+                        <p class="note-topic-id">Topic : {{ $note->topic->name }}</p>
                     </div>
                     
                     <div class="image-container">
                        <img src="{{ asset('' . $note->photo) }}" alt="Photo de la note">
                     </div>
                     
-                    <div class="more-details">
+                    {{-- <div class="more-details">
+                       
                         <button class="see-more-button">
                             See More<i class="fas fa-arrow-right"></i>
                         </button> 
-                    </div>
-                   
+                        
+                    </div>  --}}
+                    <div class="flex">
+                        <div class="keywords">
+                            <p class="keywords">{{ $note->keywords }}</p>
+                        </div>
                     
+                        <div class="more-details">
+                            <button onclick="redirectToDetail({{ $note->id }})" class="see-more-button">
+                                See More <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </a>
+            </div>
+            @endif
             @endforeach
         </div>
     </div>
@@ -93,7 +124,9 @@
     
     
     <script>
-        
+        function redirectToDetail(id) {
+    window.location.href = "{{ route('notes.detail', ['id' => ':id']) }}".replace(':id', id);
+}
 
        // JavaScript for rating functionality
        document.querySelectorAll('.note-rating i').forEach(star => {
@@ -140,18 +173,19 @@
        
        
      
-   // JavaScript for search functionality by topic, title, and keywords
-   function searchNotes() {
+    // JavaScript for search functionality by topic, title, and keywords
+    function searchNotes() {
         const searchTerm = document.getElementById('search-input').value.toLowerCase();
         const notes = document.querySelectorAll('.note');
 
         notes.forEach(note => {
             const title = note.querySelector('.note-title').textContent.toLowerCase();
             const topic = note.querySelector('.note-topic-id').textContent.toLowerCase();
-            const name = note.querySelector('.user-name').textContent.toLowerCase();
+            const name = note.querySelector('.user-namee').textContent.toLowerCase();
+            const keywords = note.querySelector('.keywords').textContent.toLowerCase();
             // You can add more selectors for other attributes like keywords if needed
 
-            if (title.includes(searchTerm) || topic.includes(searchTerm) || name.includes(searchTerm)) {
+            if (title.includes(searchTerm) || topic.includes(searchTerm) || name.includes(searchTerm) || keywords.includes(searchTerm)) {
                 note.style.display = 'block';
             } else {
                 note.style.display = 'none';

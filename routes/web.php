@@ -9,6 +9,10 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\ResetPasswordController;
+use App\Http\Controllers\RatingController;
+use App\Http\Controllers\SavedNoteController;
+
+
 
 use App\Http\Controllers\AdminController;
 
@@ -25,7 +29,6 @@ Route::post('/notes', [NoteController::class, 'storeNote'])->name('notes.store')
 //Route::get('/notes/{id}', [NoteController::class, 'show'])->name('notes.detail');
 Route::get('/notes/{id}', [NoteController::class, 'show'])->name('notes.detail');
 Route::post('/notes/{id}/like', [NoteController::class, 'like'])->name('notes.like');
-
 
 //Route::get('/login', function () {
     // Define your login logic here
@@ -72,10 +75,11 @@ Route::post('/notes/{id}/rate', 'NoteController@rate')->name('notes.rate');
 // Route pour afficher le profil de l'utilisateur
 Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('notes.display-user');
 // Afficher le formulaire de profil de l'utilisateur
-Route::get('/profile/{id}/edit', [UserController::class, 'edit'])->name('profile.edit');
+Route::get('/profile/{id}/edit', [UserController::class, 'edit'])->name('profiles.edit');
+Route::get('/profile/{id}/edit', [ProfileController::class, 'edit'])->name('profile.edit');
 
 // Mettre à jour les informations de profil de l'utilisateur
-Route::post('/profile/update', [UserController::class, 'update'])->name('profile.update');
+//Route::post('/profile/update', [UserController::class, 'update'])->name('profile.update');
 
 // Supprimer le compte utilisateur
 Route::post('/profile/destroy', [UserController::class, 'destroy'])->name('profile.destroy');
@@ -89,16 +93,19 @@ Route::post('/login', [LoginController::class, 'login'])->name('notes.login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Route protégée qui redirige après la connexion
-Route::get('/profile/{id}', [LoginController::class, 'authenticated'])->name('notes.display-user');
+//Route::get('/profile/{id}', [LoginController::class, 'authenticated'])->name('notes.display-user');
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('notes.register');
 Route::post('/register', [RegisterController::class, 'register']);
 Route::middleware('auth')->group(function () {
-    Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('profile');
+    Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('user.myprofile');
     Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/{id}/edit', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user/{id}/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
-    Route::get('/notes/user/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
+    
+    // routes/web.php
+    
+
 });
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
@@ -111,13 +118,34 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 // Apply middleware to protect routes
 Route::middleware(['auth', 'approved'])->group(function () {
-    Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('user.profile');
-    Route::get('/profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //saved_notes
+    // Route pour afficher les notes sauvegardées dans le profil de l'utilisateur
+Route::get('/profile/{id}/saved-notes', [UserController::class, 'displaySavedNotes'])->name('user.savedNotes');
+    // Route pour sauvegarder une note
+Route::post('/notes/{id}/save', [SavedNoteController::class, 'save'])->name('notes.save');
+Route::post('/notes/{id}/like', [NoteController::class, 'like'])->name('notes.like');
+
+    Route::delete('/saved-notes/{id}', [SavedNoteController::class, 'destroy'])->name('saved-notes.destroy');
+    //jusque ca 
+    Route::get('/profile/{id}/edit', [UserController::class, 'displayUser'])->name('user.profile');
+    Route::get('/profile/{id}', [UserController::class, 'displayUser'])->name('notes.display-user');
+  
+    // Afficher le formulaire de profil de l'utilisateur
+Route::get('/profile/{id}/edit', [UserController::class, 'edit'])->name('profile.edit');
+
+// Mettre à jour les informations de profil de l'utilisateur
+Route::patch('/profile/{id}/edit', [UserController::class, 'update'])->name('profile.update');
+//Route::get('/profile/{id}', [NoteController::class, 'displaySavedNotes'])->name('user.saved-notes');
+
+Route::get('/profile/{id}/edit', [NoteController::class, 'displayMyNotes'])->name('user.mynotes');
+//Route::post('/notes/{id}/save', [NoteController::class, 'saveNote'])->name('notes.save');
+
+    
+   // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user/{id}/profile', [UserController::class, 'showUserProfile'])->name('user.profile');
     Route::get('/notes/user/{id}', [NoteController::class, 'displayUserNotes'])->name('notes.userNotes');
     Route::get('/notes/create', [NoteController::class, 'addNote'])->name('notes.add');
+   
 });
 // Route pour afficher le formulaire de demande de réinitialisation de mot de passe
 Route::get('/password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
