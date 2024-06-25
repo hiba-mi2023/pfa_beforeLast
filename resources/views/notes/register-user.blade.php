@@ -55,7 +55,7 @@
                 </div>
                 <div class="birth">
                   <label for="study_field">Study Field</label>
-                  <input type="text" class="form-control" id="study_field" name="study_field" required>
+                  <input type="text" class="form-control" id="study_field" placeholder="Your study Field" name="study_field" required>
                   <div id="studyFieldError" class="error-message"></div>
                 </div>
                 <div class="birth">

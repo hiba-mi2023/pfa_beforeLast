@@ -166,7 +166,28 @@ public function storeNote(Request $request)
         return view('notes.display-user', compact('user', 'notes','savedNotes'));
     }
 
-    public function like(Request $request, $id)
+//     public function like(Request $request, $id)
+// {
+//     $note = Note::findOrFail($id);
+//     $user = Auth::user();
+
+//     if ($note->likes()->where('user_id', $user->id)->exists()) {
+//         // Unlike the note
+//         $note->likes()->detach($user->id);
+//         $liked = false;
+//     } else {
+//         // Like the note
+//         $note->likes()->attach($user->id);
+//         $liked = true;
+//     }
+
+//     return response()->json([
+//         'success' => true,
+//         'likes_count' => $note->likes()->count(),
+//         'liked' => $liked
+//     ]);
+// }    
+public function like(Request $request, $id)
 {
     $note = Note::findOrFail($id);
     $user = Auth::user();
@@ -187,5 +208,22 @@ public function storeNote(Request $request)
         'liked' => $liked
     ]);
 }
+
+public function fetchLikeStatus($id)
+{
+    $note = Note::findOrFail($id);
+    $user = Auth::user();
+
+    $liked = $note->likes()->where('user_id', $user->id)->exists();
+
+    return response()->json([
+        'success' => true,
+        'likes_count' => $note->likes()->count(),
+        'liked' => $liked
+    ]);
+}
+
+
+
     
 }

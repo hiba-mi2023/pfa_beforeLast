@@ -28,7 +28,12 @@ Route::get('/notes/create', [NoteController::class, 'addNote'])->name('notes.add
 Route::post('/notes', [NoteController::class, 'storeNote'])->name('notes.store');
 //Route::get('/notes/{id}', [NoteController::class, 'show'])->name('notes.detail');
 Route::get('/notes/{id}', [NoteController::class, 'show'])->name('notes.detail');
+// Route::post('/notes/{id}/like', [NoteController::class, 'like'])->name('notes.like');
 Route::post('/notes/{id}/like', [NoteController::class, 'like'])->name('notes.like');
+Route::get('/notes/{id}/fetch-like-status', [NoteController::class, 'fetchLikeStatus'])->name('notes.fetch-like-status');
+
+
+
 
 //Route::get('/login', function () {
     // Define your login logic here

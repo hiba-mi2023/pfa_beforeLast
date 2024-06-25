@@ -7,105 +7,7 @@
     <title>Note Details</title>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* Styling for comment section */
-        .comment-section {
-            margin-top: 20px;
-        }
     
-        /* Styling for comment user section */
-        .comment-user {
-            display: flex;
-            align-items: center;
-        }
-    
-        /* Styling for user image */
-        .comment-user .user-img {
-            margin-right: 10px;
-        }
-    
-        .comment-user .user-img i {
-            font-size: 24px;
-            color: #555;
-        }
-    
-        .comment-user .user-img img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-    
-        /* Styling for comment input */
-        #comment-input {
-            flex: 1;
-            min-height: 40px;
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            resize: none;
-        }
-    
-        /* Styling for publish button */
-        #publish-button {
-            background-color: #6c5ce7;
-            color: #fff;
-            border: none;
-            border-radius: 15px;
-            padding: 8px 16px;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top:4px;
-            margin-left: 50px;
-        }
-    
-        #publish-button:hover {
-            background-color: #a29bfe;
-        }
-    
-        /* Styling for existing comments */
-        #existing-comments {
-            margin-top: 20px;
-        }
-    
-        /* Styling for user image in existing comments */
-        #existing-comments .user-img {
-            margin-right: 10px;
-        }
-    
-        #existing-comments .user-img img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-    
-        /* Styling for comments */
-        #existing-comments .comments {
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-    
-        #existing-comments .comments .comment-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 5px;
-        }
-    
-        #existing-comments .comments .comment-header span {
-            font-weight: bold;
-            margin-right: 10px;
-        }
-    
-        #existing-comments .comments .comment-header small {
-            color: #777;
-        }
-    
-        #existing-comments .comments p {
-            margin: 0;
-        }
-    </style>
     
 </head>
 <body>
@@ -160,24 +62,27 @@
                 </div>
 
             </div>
-            <div class="another-details">
-
-                <p class="note-description">Description :{{ $note->description }}</p>
-                <p class="note-keywords">Keywords : {{ $note->keywords }}</p>
-
-            </div>
-        
+            
         </div>
         <div class="image-container">
          <img src="{{ asset('' . $note->photo) }}" alt="Photo de la note">
 
         </div>
+        <div class="another-details">
+
+            <p class="note-description">Description :{{ $note->description }}</p>
+            <p class="note-keywords">Keywords : {{ $note->keywords }}</p>
+
+        </div>
+    
 
         
 
         <div class="note-buttons">
 
-            <button class="like-note-button"><i class="fa-regular fa-heart"></i> Like<span id="like-count">{{ $note->likes_count }}</span></button>
+            <button class="like-note-button" data-note-id="{{ $note->id }}">
+                <i class="fa-regular fa-heart"></i> Like<span id="like-count">{{ $note->likes_count }}</span>
+            </button>
             <button class="comment-button" id="comment-button" name="comment-button"><i class="fa-regular fa-comment"></i> Comment</button>  
         
         </div>
@@ -198,33 +103,46 @@
                         <button type="submit" id="publish-button" style="display: none;">publish</button>
                 </div>
             </form>
-
-            <div id="existing-comments" style="display: none;">
-              
+            <div class="existing-commentss">
                 @foreach ($note->commentaires as $commentaire) 
-                
-                <div class="user-img">
-                    @if ($commentaire->utilisateur->photo_de_profil)
-                        <img src="{{ asset('storage/' . $commentaire->utilisateur->photo_de_profil) }}"  class="profile-picture">
-                    @else
-                        <img src="{{ asset('storage/default-profile-picture.png') }}"  class="profile-picture">
-                    @endif
-                </div>
-
-                <div class ="comments">
+            
+                    <div id="existing-comments" style="display: none;">
                     
-                    <div class="comment-header">
-
-                        <span>{{ $commentaire->utilisateur->first_name }} {{ $commentaire->utilisateur->family_name }}</span>
-                        <small class="note-published-at">{{ $commentaire->created_at }}</small>
                     
+                        
+                        <div class="user-img">
+                            @if ($commentaire->utilisateur->photo_de_profil)
+                                <img src="{{ asset('storage/' . $commentaire->utilisateur->photo_de_profil) }}"  class="profile-picture">
+                            @else
+                                <img src="{{ asset('storage/default-profile-picture.png') }}"  class="profile-picture">
+                            @endif
+                        </div>
+
+                        {{-- <div class ="comments">
+                            
+                            <div class="comment-header">
+
+                                <span>{{ $commentaire->utilisateur->first_name }} {{ $commentaire->utilisateur->family_name }}</span>
+                                <small class="note-published-at">{{ $commentaire->created_at }}</small>
+                            
+                            </div>
+                            
+                            <p>{{ $commentaire->Contenu }}</p>
+
+                        </div> --}}
+                        <div class="comments">
+                            <div class="comment-header">
+                                <span>{{ $commentaire->utilisateur->first_name }} </span>
+                                <span> {{ $commentaire->utilisateur->family_name }}</span>
+                                <small class="note-published-at">{{ $commentaire->created_at }}</small>
+                            </div>
+                            <p>{{ $commentaire->Contenu }}</p>
+                        </div>
                     </div>
-                    
-                    <p>{{ $commentaire->Contenu }}</p>
-
-                </div>
+        
                 @endforeach
-            </div>
+            </div>   
+            
         </div>
 
 
@@ -265,31 +183,79 @@
             });
         });
 
+        // $(document).ready(function() {
+        //     $('.like-note-button').click(function() {
+        //         var noteId = $(this).data('note-id');
+        //         var likeButton = $(this);
+        //         $.ajax({
+        //             url: "{{ route('notes.like', ['id' => $note->id]) }}",
+        //             method: 'POST',
+        //             data: {
+        //                 _token: '{{ csrf_token() }}',
+        //                 note_id: noteId
+        //             },
+        //             success: function(response) {
+        //                 if (response.success) {
+        //                     var likeCount = $('#like-count');
+        //                     likeCount.text(response.likes_count);
+        //                     if (response.liked) {
+        //                         likeButton.find('i').removeClass('fa-regular').addClass('fa-solid');
+        //                     } else {
+        //                         likeButton.find('i').removeClass('fa-solid').addClass('fa-regular');
+        //                     }
+        //                 }
+        //             }
+        //         });
+        //     });
+        // });
         $(document).ready(function() {
-            $('.like-note-button').click(function() {
-                var noteId = $(this).data('note-id');
-                var likeButton = $(this);
-                $.ajax({
-                    url: "{{ route('notes.like', ['id' => $note->id]) }}",
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        note_id: noteId
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            var likeCount = $('#like-count');
-                            likeCount.text(response.likes_count);
-                            if (response.liked) {
-                                likeButton.find('i').removeClass('fa-regular').addClass('fa-solid');
-                            } else {
-                                likeButton.find('i').removeClass('fa-solid').addClass('fa-regular');
-                            }
-                        }
+        // Function to update like button state based on server response
+        function updateLikeButtonState(response) {
+            var likeButton = $('.like-note-button');
+            var likeCount = $('#like-count');
+
+            likeCount.text(response.likes_count);
+
+            if (response.liked) {
+                likeButton.find('i').removeClass('fa-regular').addClass('fa-solid');
+            } else {
+                likeButton.find('i').removeClass('fa-solid').addClass('fa-regular');
+            }
+        }
+
+        // Function to handle like button click
+        $('.like-note-button').click(function() {
+            var noteId = $(this).data('note-id');
+            var likeButton = $(this);
+
+            $.ajax({
+                url: "{{ route('notes.like', ['id' => $note->id]) }}",
+                method: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    note_id: noteId
+                },
+                success: function(response) {
+                    if (response.success) {
+                        updateLikeButtonState(response); // Update like button state
                     }
-                });
+                }
             });
         });
+
+        // Fetch initial like status when the page loads
+        $.ajax({
+            url: "{{ route('notes.fetch-like-status', ['id' => $note->id]) }}",
+            method: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    updateLikeButtonState(response); // Update like button state based on fetched status
+                }
+            }
+        });
+        });
+
+        
     </script>
     
     

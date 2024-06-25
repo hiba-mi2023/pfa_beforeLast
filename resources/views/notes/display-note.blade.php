@@ -50,18 +50,20 @@
                     <div class="note-container">
                         
                          <div class="user-info">
+                            @if($note->user)
                             <div class="user-img">
                                 @if ($note->user->photo_de_profil)
                                     <img  src="{{ asset('storage/' . $note->user->photo_de_profil) }}" alt="Photo de profil de {{ $note->user->first_name }}">
                                 @endif
                             </div>
                             <p class="user-namee">
-                            @if ($note->user)
+                           
                             <a href="{{ route('user.profile', ['id' => $note->user->id]) }}" class="name">
                              {{ $note->user->first_name }} {{ $note->user->family_name }}
                             </a>
-                            @endif
+                           
                             </p>
+                            @endif
                             <div class="note-on">
                                 <p class="note-published-at">{{ $note->created_at }}</p>
                             </div>

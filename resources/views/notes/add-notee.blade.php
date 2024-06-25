@@ -343,23 +343,23 @@
                 <input type="file" class="form-control" accept=".jpg,.jpeg,.png,.svg,.webp,.tiff" id="photo" name="photo" required>
                 <div id="photoError" class="error-message"></div>
             </div>
-            <button type="submit" id="add-note-btn">Add Note</button>
+            <div class="add-note-btnn">
+                <button type="submit" id="add-note-btn">Add Note</button>
+            </div>
+            
         </form>
         <div id="notes-list"></div>
     </div>
-  
+    <div id="submit-warning" style="display: none;" class="error-message">Note is currently being reviewed by admin.</div>
     <script>
          $(document).ready(function () {
-            // Submit form via AJAX
             $("#notes-form").on("submit", function (event) {
-                // Perform client-side validation before submitting the form
-                if (!validateForm()) {
-                    event.preventDefault(); // Prevent form submission if validation fails
-                } else {
-                    // If validation passes, proceed with AJAX submission
+                event.preventDefault();
+                if(validateForm()) {
                     var title = $("#title").val();
                     var description = $("#description").val();
                     var discipline = $("#discipline_id").val();
+                    // Proceed with AJAX request
                     $.ajax({
                         url: "/submit",
                         method: "POST",
@@ -387,6 +387,8 @@
             $("#topic").on("blur", validateTopic);
             $("#keywords").on("blur", validateKeywords);
             $("#description").on("blur", validateDescription);
+            $("#discipline_id").on("change", validateDiscipline);
+            $("#photo").on("change", validatePhoto);
 
             function validateForm() {
                 var isValid = true;
@@ -396,6 +398,8 @@
                 if (!validateTopic()) isValid = false;
                 if (!validateKeywords()) isValid = false;
                 if (!validateDescription()) isValid = false;
+                if (!validateDiscipline()) isValid = false;
+                if (!validatePhoto()) isValid = false;
 
                 return isValid;
             }
@@ -406,7 +410,7 @@
                     $("#titleError").text("Please enter a title");
                     return false;
                 } else if (!isValidString(title)) {
-                    $("#titleError").text("Please enter a valid title");
+                    $("#titleError").text("");
                     return false;
                 } else {
                     $("#titleError").text("");
@@ -448,7 +452,7 @@
                     $("#descriptionError").text("Please enter a description");
                     return false;
                 } else if (!isValidString(description)) {
-                    $("#descriptionError").text("Please enter a valid description");
+                    $("#descriptionError").text("");
                     return false;
                 } else {
                     $("#descriptionError").text("");
@@ -476,7 +480,50 @@
             function isValidKeywords(keywords) {
                 return keywords.split(';').every(kw => kw.trim().startsWith('#'));
             }
-        });
+            function validateDiscipline() {
+        var discipline = $("#discipline_id").val();
+        if (discipline === "") {
+            $("#disciplineError").text("Please select a discipline");
+            return false;
+        } else {
+            $("#disciplineError").text("");
+            return true;
+        }
+    }
+
+    function validatePhoto() {
+        var fileInput = $("#photo");
+        if (fileInput.get(0).files.length === 0) {
+            $("#photoError").text("Please upload a photo");
+            return false;
+        } else {
+            $("#photoError").text("");
+            return true;
+        }
+    }
+
+    function validateDiscipline() {
+        var discipline = $("#discipline_id").val();
+        if (discipline === "") {
+            $("#disciplineError").text("Please select a discipline");
+            return false;
+        } else {
+            $("#disciplineError").text("");
+            return true;
+        }
+    }
+
+    function validatePhoto() {
+        var fileInput = $("#photo");
+        if (fileInput.get(0).files.length === 0) {
+            $("#photoError").text("Please upload a photo");
+            return false;
+        } else {
+            $("#photoError").text("");
+            return true;
+        }
+    }
+});
     </script>
 </body>
 </html>
