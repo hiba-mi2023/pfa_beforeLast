@@ -99,11 +99,17 @@ body{
 }
 
 /* Error messages */
-.error-messages {
+/* .error-message {
     margin-top: 10px;
     color: #ff0000;
     font-size: 14px;
-}
+} */
+.error-message{
+    color: red;
+    font-size: 14px;
+    margin-top: -6px;
+    margin-bottom: 0;
+  }
 
 h2{
     font-weight:400;

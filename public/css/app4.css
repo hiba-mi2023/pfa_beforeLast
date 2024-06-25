@@ -33,6 +33,7 @@
     margin-bottom:2px;
   }
   .user-info .user-name {
+    
     display: inline-block;
     font-size: 8px; /* Adjust the font size as needed */
     line-height: 1.2; /* Adjust the line height for better spacing */
@@ -81,7 +82,11 @@
     margin-bottom: 25px;
     
 }
-
+.titles{
+    font-family: "Playwrite NZ", cursive;
+    margin-left:30px;
+    margin-bottom: 40px;
+ }
 .note-details{
    
     margin-bottom:10px;
@@ -157,26 +162,30 @@ hr{
     margin-left: 5px; /* Add some space between text and arrow */
 }
 .image-container {
-    width: 490px; /* Adjust width of the image container */
-    height: 240px; /* Use full height of the note details */
-    flex-shrink: 0; /* Prevent the image container from shrinking */
-    display: flex; /* Use flexbox */
-    justify-content: center; /* Center the image horizontally */
-    align-items: center; /* Center the image vertically */
+    width: 490px; 
+    height: 240px; 
+    flex-shrink: 0; 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
     margin-left: auto;
-    margin-right: auto; /* Auto right margin */
-    margin-top:-2px;
+    margin-right: auto; 
+   
+  
     }
   
     .image-container img {
-    width: 100%; /* Make the image take the whole width of the container */
-    height: auto; /* Maintain aspect ratio */
-    max-width: 100%; /* Ensure the image does not exceed the container's width */
-    max-height: 100%; /* Ensure the image does not exceed the container's height */
-    border: none; /* Remove border from the image */
-    /* border-radius: 15px; */
+    width: 100%; 
+    height: auto; 
+    max-width: 100%; 
+    max-height: 100%; 
+    border: none;
+    
     margin-bottom: 12px;
+   
     }
+    
+    
     .fa-regular.fa-comment-dots{
       cursor:pointer;
     }
@@ -242,6 +251,7 @@ hr{
 
     .profile-infos .profile-name{
         font-size: 14px;
+        font-family: "Playwrite NZ", cursive;
         
     }
     .user-info-container .pencil-icon img{
@@ -368,8 +378,25 @@ hr{
 /* Search container styles */
 .search-container {
     text-align: center;
-    margin-top: 20px;
+    
+    margin-top: 100px;
+    margin-bottom: 100px;
 }
+.note-actionss{
+    margin-right:16px;
+  }
+.note-actionss button[type="submit"] {
+    color: black; 
+    font-size: 20px; 
+    cursor: pointer;
+    margin-left: 5px; 
+    background-color: inherit;
+    border: none;
+  }
+  .note-actionss button[type="submit"]:hover {
+   
+    background-color: inherit;
+  }
 
 /* Input field */
 #search-input {

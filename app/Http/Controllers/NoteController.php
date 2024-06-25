@@ -6,9 +6,11 @@ use App\Models\Note;
 use App\Models\User;
 use App\Models\Topic;
 use App\Models\Discipline;
+use App\Models\savedNote;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Storage;
+
 use Illuminate\Support\Facades\Auth;
 class NoteController extends Controller
 {
@@ -151,9 +153,17 @@ public function storeNote(Request $request)
     public function displayUserNotes($userId)
     {
         $user = User::findOrFail($userId);
-        $note = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
+        $notes = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
         
         return view('notes.user-profile', compact('user', 'notes'));
+    }
+    public function displayMyNotes($userId)
+    {
+        $user = User::findOrFail($userId);
+        $notes = Note::where('ID_utilisateur', $userId)->orderBy('published_at', 'desc')->get();
+        $savedNotes = SavedNote::where('user_id', $user->id)->with('note')->get();
+        
+        return view('notes.display-user', compact('user', 'notes','savedNotes'));
     }
 
     public function like(Request $request, $id)

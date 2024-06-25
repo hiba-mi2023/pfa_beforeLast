@@ -5,39 +5,20 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Password;
 
 class ResetPasswordController extends Controller
 {
     use ResetsPasswords;
 
-    /**
-     * Where to redirect users after resetting their password.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/login'; // Redirection après réinitialisation du mot de passe
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Display the password reset view for the given token.
-     *
-     * If no token is present, display the link request form.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string|null  $token
-     * @return \Illuminate\View\View
-     */
+    // Affiche le formulaire de réinitialisation de mot de passe avec le token
     public function showResetForm(Request $request, $token = null)
     {
         return view('auth.passwords.reset')->with(
@@ -45,12 +26,7 @@ class ResetPasswordController extends Controller
         );
     }
 
-    /**
-     * Reset the given user's password.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
+    // Réinitialise le mot de passe
     public function reset(Request $request)
     {
         $request->validate($this->rules(), $this->validationErrorMessages());
@@ -61,32 +37,20 @@ class ResetPasswordController extends Controller
             }
         );
 
-        // Gérer la réponse en fonction du résultat de la réinitialisation
+        // Gestion de la réponse en fonction du résultat de la réinitialisation
         return $response == Password::PASSWORD_RESET
                     ? $this->sendResetResponse($request, $response)
                     : $this->sendResetFailedResponse($request, $response);
     }
 
-    /**
-     * Get the response for a successful password reset.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
+    // Redirection après une réinitialisation réussie
     protected function sendResetResponse(Request $request, $response)
     {
         return redirect($this->redirectPath())
                     ->with('status', trans($response));
     }
 
-    /**
-     * Get the response for a failed password reset.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  string  $response
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
-     */
+    // Redirection en cas d'échec de la réinitialisation
     protected function sendResetFailedResponse(Request $request, $response)
     {
         return redirect()->back()

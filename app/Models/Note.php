@@ -37,7 +37,7 @@ class Note extends Model
 {
     return $this->hasMany(Commentaire::class, 'ID_note');
 }
-public function user()
+    public function user()
     {
         return $this->belongsTo(User::class, 'ID_utilisateur', 'id');
     }
@@ -45,6 +45,11 @@ public function user()
     {
         return $this->belongsToMany(User::class, 'note_likes');
     }
+    public function savedNotes()
+{
+    return $this->hasMany(SavedNote::class);
+}
+
     
 
 }
